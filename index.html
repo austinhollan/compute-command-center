@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perplexity Compute Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- Scanline overlay -->
+    <div class="scanline-overlay"></div>
+    
+    <!-- Sidebar overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Left Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-mark">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <rect x="2" y="2" width="24" height="24" rx="4" stroke="#00D4AA" stroke-width="2"/>
+                    <rect x="7" y="7" width="6" height="6" fill="#00D4AA" opacity="0.9"/>
+                    <rect x="15" y="7" width="6" height="6" fill="#00D4AA" opacity="0.6"/>
+                    <rect x="7" y="15" width="6" height="6" fill="#00D4AA" opacity="0.6"/>
+                    <rect x="15" y="15" width="6" height="6" fill="#00D4AA" opacity="0.3"/>
+                </svg>
+            </div>
+            <div class="logo-text">
+                <span class="logo-title">COMPUTE</span>
+                <span class="logo-subtitle">COMMAND CENTER</span>
+            </div>
+        </div>
+        <div class="sidebar-nav">
+            <a href="#" class="nav-item active" data-section="fleet" data-key="1">
+                <span class="nav-icon">◈</span>
+                <span class="nav-label">Fleet Dashboard</span>
+                <span class="nav-shortcut">1</span>
+            </a>
+            <a href="#" class="nav-item" data-section="advisor" data-key="2">
+                <span class="nav-icon">⚡</span>
+                <span class="nav-label">GPU Advisor</span>
+                <span class="nav-shortcut">2</span>
+            </a>
+            <a href="#" class="nav-item" data-section="cost" data-key="3">
+                <span class="nav-icon">◆</span>
+                <span class="nav-label">Cost Analyzer</span>
+                <span class="nav-shortcut">3</span>
+            </a>
+            <a href="#" class="nav-item" data-section="scheduler" data-key="4">
+                <span class="nav-icon">▦</span>
+                <span class="nav-label">Job Scheduler</span>
+                <span class="nav-shortcut">4</span>
+            </a>
+            <a href="#" class="nav-item" data-section="capacity" data-key="5">
+                <span class="nav-icon">◐</span>
+                <span class="nav-label">Capacity Planner</span>
+                <span class="nav-shortcut">5</span>
+            </a>
+            <a href="#" class="nav-item" data-section="knowledge" data-key="6">
+                <span class="nav-icon">▣</span>
+                <span class="nav-label">GPU Knowledge Base</span>
+                <span class="nav-shortcut">6</span>
+            </a>
+            <a href="#" class="nav-item" data-section="reports" data-key="7">
+                <span class="nav-icon">▤</span>
+                <span class="nav-label">Reports</span>
+                <span class="nav-shortcut">7</span>
+            </a>
+            <a href="#" class="nav-item" data-section="monitoring" data-key="8">
+                <span class="nav-icon">◉</span>
+                <span class="nav-label">GPU Monitoring</span>
+                <span class="nav-shortcut">8</span>
+            </a>
+            <a href="#" class="nav-item" data-section="grafana" data-key="9">
+                <span class="nav-icon">◧</span>
+                <span class="nav-label">Grafana Connector</span>
+                <span class="nav-shortcut">9</span>
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <div class="system-status">
+                <span class="status-dot pulse"></span>
+                <span class="status-text">All systems operational</span>
+            </div>
+            <div class="sidebar-meta">
+                <span class="meta-label">Fleet Version</span>
+                <span class="meta-value">v3.0.0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <span></span><span></span><span></span>
+                </button>
+                <h1 class="page-title" id="pageTitle">Fleet Dashboard</h1>
+                <span class="page-breadcrumb" id="pageBreadcrumb">Overview &rsaquo; Real-time Fleet Status</span>
+            </div>
+            <div class="top-bar-right">
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    <span class="live-text">LIVE</span>
+                </div>
+                <div class="clock" id="clock"></div>
+            </div>
+        </header>
+
+        <!-- Section containers -->
+        <div class="content-area" id="contentArea">
+            <section class="section active" id="section-fleet"></section>
+            <section class="section" id="section-advisor"></section>
+            <section class="section" id="section-cost"></section>
+            <section class="section" id="section-scheduler"></section>
+            <section class="section" id="section-capacity"></section>
+            <section class="section" id="section-knowledge"></section>
+            <section class="section" id="section-reports"></section>
+            <section class="section" id="section-monitoring"></section>
+            <section class="section" id="section-grafana"></section>
+        </div>
+    </main>
+
+    <!-- Hidden file input for CSV import -->
+    <input type="file" id="csvFileInput" accept=".csv" style="display:none">
+
+    <!-- Modular JS — loaded in dependency order -->
+    <script src="./js/data.js"></script>
+    <script src="./js/fleet.js"></script>
+    <script src="./js/advisor.js"></script>
+    <script src="./js/cost.js"></script>
+    <script src="./js/scheduler.js"></script>
+    <script src="./js/capacity.js"></script>
+    <script src="./js/knowledge.js"></script>
+    <script src="./js/reports.js"></script>
+    <script src="./js/monitoring.js"></script>
+    <script src="./js/grafana.js"></script>
+    <script src="./js/nav.js"></script>
+</body>
+</html>
