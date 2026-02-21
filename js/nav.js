@@ -12,6 +12,8 @@ const sectionTitles = {
     reports: { title:'Reports', breadcrumb:'Export › Fleet Reports & Summaries' },
     monitoring: { title:'GPU Monitoring', breadcrumb:'Operations › Real-time GPU Telemetry & Health' },
     grafana: { title:'Grafana Connector', breadcrumb:'Integrations › Grafana Dashboard Configuration' },
+    models:  { title:'Model Registry',     breadcrumb:'MLOps › Model Versioning & Deployment' },
+    admin:   { title:'Admin Dashboard',    breadcrumb:'Admin › Approvals, Accounting, Users & Audit' },
 };
 
 let currentSection = 'fleet';
@@ -50,6 +52,8 @@ function renderSection(id) {
         case 'reports': renderReports(); break;
         case 'monitoring': renderGPUMonitoring(); break;
         case 'grafana': renderGrafanaConnector(); break;
+        case 'models':  renderModelManagement();   break;
+        case 'admin':   renderAdminDashboard();    break;
     }
 }
 
@@ -64,7 +68,7 @@ document.querySelectorAll('.nav-item').forEach(item => {
 // Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
     if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
-    const sections = ['fleet','advisor','cost','scheduler','capacity','knowledge','reports','monitoring','grafana'];
+    const sections = ['fleet','scheduler','models','monitoring','advisor','capacity','cost','knowledge','grafana'];
     const key = parseInt(e.key);
     if(key >= 1 && key <= 9) {
         e.preventDefault();

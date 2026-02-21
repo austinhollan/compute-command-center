@@ -1,5 +1,5 @@
 // ============================================================
-// PERPLEXITY COMPUTE COMMAND CENTER — app.js
+// PERPLEXITY COMPUTE COMMAND CENTER — data.js
 // Complete GPU Fleet Management & Advisory Platform
 // ============================================================
 
@@ -122,3 +122,102 @@ function fmtCurrency(n) { if(n>=1e6) return '$'+fmt(n/1e6,1)+'M'; if(n>=1e3) ret
 function fmtPrecise(n) { return '$'+fmt(n,2); }
 function pct(n,total) { return total===0?0:((n/total)*100); }
 function el(tag, cls, html) { const e=document.createElement(tag); if(cls)e.className=cls; if(html!==undefined)e.innerHTML=html; return e; }
+
+// ============================================================
+// NEW: Deployment Data (Inference Deployments)
+// ============================================================
+let deploymentData = [
+    { id: 'dep-001', model_name: 'pplx-sonar-large', model_version: 'v2.4', gpu_type: 'H200 SXM', gpu_count: 16, replicas: 4, min_replicas: 2, max_replicas: 8, status: 'running', namespace: 'inference-prod', provider: 'AWS', endpoint_url: 'https://sonar-large.inference.perplexity.internal', created_by: 'austin.hollan@perplexity.ai', approved_by: 'kevin@perplexity.ai', created_at: '2026-01-15T10:00:00Z', qps: 2340, p50_latency: 42, p99_latency: 180, daily_tokens: 12.4e9 },
+    { id: 'dep-002', model_name: 'pplx-sonar-small', model_version: 'v2.4', gpu_type: 'H100 SXM', gpu_count: 8, replicas: 6, min_replicas: 4, max_replicas: 12, status: 'running', namespace: 'inference-prod', provider: 'Lambda Labs', endpoint_url: 'https://sonar-small.inference.perplexity.internal', created_by: 'austin.hollan@perplexity.ai', approved_by: 'kevin@perplexity.ai', created_at: '2026-01-10T08:00:00Z', qps: 5120, p50_latency: 18, p99_latency: 85, daily_tokens: 28.7e9 },
+    { id: 'dep-003', model_name: 'pplx-reasoning', model_version: 'v1.2', gpu_type: 'GB200 NVL72', gpu_count: 72, replicas: 2, min_replicas: 1, max_replicas: 4, status: 'running', namespace: 'inference-prod', provider: 'CoreWeave', endpoint_url: 'https://reasoning.inference.perplexity.internal', created_by: 'austin.hollan@perplexity.ai', approved_by: 'kevin@perplexity.ai', created_at: '2026-02-01T14:00:00Z', qps: 890, p50_latency: 120, p99_latency: 450, daily_tokens: 4.2e9 },
+    { id: 'dep-004', model_name: 'pplx-code', model_version: 'v3.0', gpu_type: 'H200 SXM', gpu_count: 8, replicas: 3, min_replicas: 2, max_replicas: 6, status: 'running', namespace: 'inference-prod', provider: 'AWS', endpoint_url: 'https://code.inference.perplexity.internal', created_by: 'austin.hollan@perplexity.ai', approved_by: 'kevin@perplexity.ai', created_at: '2026-02-05T09:00:00Z', qps: 1560, p50_latency: 35, p99_latency: 150, daily_tokens: 8.1e9 },
+    { id: 'dep-005', model_name: 'pplx-embeddings-v3', model_version: 'v3.1', gpu_type: 'H100 SXM', gpu_count: 4, replicas: 2, min_replicas: 2, max_replicas: 4, status: 'running', namespace: 'inference-prod', provider: 'AWS', endpoint_url: 'https://embeddings.inference.perplexity.internal', created_by: 'austin.hollan@perplexity.ai', approved_by: 'kevin@perplexity.ai', created_at: '2026-01-20T11:00:00Z', qps: 8900, p50_latency: 8, p99_latency: 25, daily_tokens: 52.3e9 },
+    { id: 'dep-006', model_name: 'pplx-sonar-turbo', model_version: 'v1.0', gpu_type: 'H200 SXM', gpu_count: 8, replicas: 0, min_replicas: 1, max_replicas: 4, status: 'pending_approval', namespace: 'inference-prod', provider: 'AWS', endpoint_url: null, created_by: 'eng-team@perplexity.ai', approved_by: null, created_at: '2026-02-20T16:00:00Z', qps: 0, p50_latency: 0, p99_latency: 0, daily_tokens: 0 },
+];
+
+// ============================================================
+// NEW: Job Data (Training Jobs) — replaces schedulerJobs
+// ============================================================
+let jobData = [
+    { id: 'job-001', name: 'Sonar Large v2.5 Pre-training', type: 'training', model: 'pplx-sonar-large', gpu_type: 'GB200 NVL72', gpu_count: 144, priority: 'P0', status: 'running', submitted_by: 'austin.hollan@perplexity.ai', approved_by: 'kevin@perplexity.ai', submitted_at: '2026-02-10T08:00:00Z', started_at: '2026-02-10T10:00:00Z', completed_at: null, est_duration: '14d', cost_accrued: 892000, progress: 62, checkpoint: 'step-42000/68000' },
+    { id: 'job-002', name: 'Code Model Fine-tune (Python focus)', type: 'training', model: 'pplx-code', gpu_type: 'H200 SXM', gpu_count: 64, priority: 'P1', status: 'running', submitted_by: 'eng-team@perplexity.ai', approved_by: 'kevin@perplexity.ai', submitted_at: '2026-02-15T09:00:00Z', started_at: '2026-02-15T14:00:00Z', completed_at: null, est_duration: '5d', cost_accrued: 48200, progress: 78, checkpoint: 'epoch-3/4' },
+    { id: 'job-003', name: 'Reasoning v1.3 RLHF', type: 'training', model: 'pplx-reasoning', gpu_type: 'H200 SXM', gpu_count: 32, priority: 'P1', status: 'running', submitted_by: 'research@perplexity.ai', approved_by: 'kevin@perplexity.ai', submitted_at: '2026-02-18T10:00:00Z', started_at: '2026-02-18T12:00:00Z', completed_at: null, est_duration: '3d', cost_accrued: 12400, progress: 45, checkpoint: 'step-8500/19000' },
+    { id: 'job-004', name: 'Embeddings v4 Contrastive Training', type: 'training', model: 'pplx-embeddings', gpu_type: 'H100 SXM', gpu_count: 16, priority: 'P2', status: 'queued', submitted_by: 'ml-infra@perplexity.ai', approved_by: 'kevin@perplexity.ai', submitted_at: '2026-02-19T11:00:00Z', started_at: null, completed_at: null, est_duration: '2d', cost_accrued: 0, progress: 0, checkpoint: null },
+    { id: 'job-005', name: 'Safety Evaluation Suite', type: 'batch', model: 'pplx-sonar-large', gpu_type: 'H100 SXM', gpu_count: 8, priority: 'P2', status: 'queued', submitted_by: 'safety@perplexity.ai', approved_by: 'kevin@perplexity.ai', submitted_at: '2026-02-20T08:00:00Z', started_at: null, completed_at: null, est_duration: '8h', cost_accrued: 0, progress: 0, checkpoint: null },
+    { id: 'job-006', name: 'Sonar Turbo Distillation', type: 'training', model: 'pplx-sonar-turbo', gpu_type: 'H200 SXM', gpu_count: 32, priority: 'P1', status: 'pending_approval', submitted_by: 'eng-team@perplexity.ai', approved_by: null, submitted_at: '2026-02-20T15:00:00Z', started_at: null, completed_at: null, est_duration: '7d', cost_accrued: 0, progress: 0, checkpoint: null },
+    { id: 'job-007', name: 'Multilingual Alignment (Phase 2)', type: 'training', model: 'pplx-sonar-large', gpu_type: 'H200 SXM', gpu_count: 64, priority: 'P2', status: 'pending_approval', submitted_by: 'research@perplexity.ai', approved_by: null, submitted_at: '2026-02-21T09:00:00Z', started_at: null, completed_at: null, est_duration: '4d', cost_accrued: 0, progress: 0, checkpoint: null },
+    { id: 'job-008', name: 'Sonar Small v2.3 SFT', type: 'training', model: 'pplx-sonar-small', gpu_type: 'H100 SXM', gpu_count: 32, priority: 'P1', status: 'completed', submitted_by: 'austin.hollan@perplexity.ai', approved_by: 'kevin@perplexity.ai', submitted_at: '2026-02-08T10:00:00Z', started_at: '2026-02-08T12:00:00Z', completed_at: '2026-02-12T18:00:00Z', est_duration: '4d', cost_accrued: 78500, progress: 100, checkpoint: 'final' },
+];
+
+// ============================================================
+// NEW: Model Registry
+// ============================================================
+let modelRegistry = [
+    { id: 'model-001', name: 'pplx-sonar-large', version: 'v2.4', framework: 'vLLM', params: '70B', gpu_requirements: { min_gpu_type: 'H200 SXM', min_vram: 141, min_count: 8 }, status: 'deployed', current_replicas: 4, endpoint_url: 'https://sonar-large.inference.perplexity.internal', created_at: '2026-01-15T10:00:00Z' },
+    { id: 'model-002', name: 'pplx-sonar-small', version: 'v2.4', framework: 'vLLM', params: '8B', gpu_requirements: { min_gpu_type: 'H100 SXM', min_vram: 80, min_count: 2 }, status: 'deployed', current_replicas: 6, endpoint_url: 'https://sonar-small.inference.perplexity.internal', created_at: '2026-01-10T08:00:00Z' },
+    { id: 'model-003', name: 'pplx-reasoning', version: 'v1.2', framework: 'vLLM + speculative', params: '405B', gpu_requirements: { min_gpu_type: 'GB200 NVL72', min_vram: 192, min_count: 36 }, status: 'deployed', current_replicas: 2, endpoint_url: 'https://reasoning.inference.perplexity.internal', created_at: '2026-02-01T14:00:00Z' },
+    { id: 'model-004', name: 'pplx-code', version: 'v3.0', framework: 'TGI', params: '34B', gpu_requirements: { min_gpu_type: 'H200 SXM', min_vram: 80, min_count: 4 }, status: 'deployed', current_replicas: 3, endpoint_url: 'https://code.inference.perplexity.internal', created_at: '2026-02-05T09:00:00Z' },
+    { id: 'model-005', name: 'pplx-embeddings-v3', version: 'v3.1', framework: 'ONNX Runtime', params: '1.2B', gpu_requirements: { min_gpu_type: 'H100 SXM', min_vram: 40, min_count: 2 }, status: 'deployed', current_replicas: 2, endpoint_url: 'https://embeddings.inference.perplexity.internal', created_at: '2026-01-20T11:00:00Z' },
+    { id: 'model-006', name: 'pplx-sonar-turbo', version: 'v1.0', framework: 'vLLM', params: '22B', gpu_requirements: { min_gpu_type: 'H200 SXM', min_vram: 80, min_count: 4 }, status: 'registered', current_replicas: 0, endpoint_url: null, created_at: '2026-02-20T16:00:00Z' },
+    { id: 'model-007', name: 'pplx-sonar-large', version: 'v2.5-beta', framework: 'vLLM', params: '70B', gpu_requirements: { min_gpu_type: 'H200 SXM', min_vram: 141, min_count: 8 }, status: 'training', current_replicas: 0, endpoint_url: null, created_at: '2026-02-10T08:00:00Z' },
+];
+
+// ============================================================
+// NEW: Approval Queue
+// ============================================================
+let approvalQueue = [
+    { id: 'apr-001', type: 'deployment', target_id: 'dep-006', status: 'pending', requester: 'eng-team@perplexity.ai', approver: null, created_at: '2026-02-20T16:00:00Z', resolved_at: null, payload: { model: 'pplx-sonar-turbo v1.0', gpu_type: 'H200 SXM', gpu_count: 8, replicas: 1, est_monthly_cost: 10140 } },
+    { id: 'apr-002', type: 'job', target_id: 'job-006', status: 'pending', requester: 'eng-team@perplexity.ai', approver: null, created_at: '2026-02-20T15:00:00Z', resolved_at: null, payload: { name: 'Sonar Turbo Distillation', gpu_type: 'H200 SXM', gpu_count: 32, est_duration: '7d', est_cost: 95200 } },
+    { id: 'apr-003', type: 'job', target_id: 'job-007', status: 'pending', requester: 'research@perplexity.ai', approver: null, created_at: '2026-02-21T09:00:00Z', resolved_at: null, payload: { name: 'Multilingual Alignment (Phase 2)', gpu_type: 'H200 SXM', gpu_count: 64, est_duration: '4d', est_cost: 68400 } },
+    { id: 'apr-004', type: 'deployment', target_id: 'dep-003', status: 'approved', requester: 'austin.hollan@perplexity.ai', approver: 'kevin@perplexity.ai', created_at: '2026-02-01T13:00:00Z', resolved_at: '2026-02-01T13:45:00Z', payload: { model: 'pplx-reasoning v1.2', gpu_type: 'GB200 NVL72', gpu_count: 72, replicas: 2 } },
+];
+
+// ============================================================
+// NEW: Cost Data (Accounting)
+// ============================================================
+const costData = {
+    totalMonthly: 4764063,
+    totalMTD: 3842000,
+    budget: 5200000,
+    byTeam: [
+        { team: 'Inference Platform', monthly: 2890000, mtd: 2334000, budget: 3100000, gpus: 1940 },
+        { team: 'Training / Research', monthly: 1520000, mtd: 1228000, budget: 1700000, gpus: 960 },
+        { team: 'Evaluation / Safety', monthly: 124000, mtd: 100000, budget: 150000, gpus: 85 },
+        { team: 'Embeddings', monthly: 230063, mtd: 180000, budget: 250000, gpus: 200 },
+    ],
+    byModel: [
+        { model: 'pplx-sonar-large', monthly: 1420000, gpus: 64, provider: 'AWS' },
+        { model: 'pplx-sonar-small', monthly: 560000, gpus: 48, provider: 'Lambda Labs' },
+        { model: 'pplx-reasoning', monthly: 1654000, gpus: 144, provider: 'CoreWeave' },
+        { model: 'pplx-code', monthly: 420000, gpus: 24, provider: 'AWS' },
+        { model: 'pplx-embeddings-v3', monthly: 230000, gpus: 8, provider: 'AWS' },
+        { model: 'Training jobs (active)', monthly: 480063, gpus: 240, provider: 'Mixed' },
+    ],
+    byProvider: [
+        { provider: 'AWS', monthly: 2700000, gpus: 2113, pct: 56.7 },
+        { provider: 'CoreWeave', monthly: 1654000, gpus: 720, pct: 34.7 },
+        { provider: 'Lambda Labs', monthly: 410063, gpus: 352, pct: 8.6 },
+    ],
+    monthlyTrend: [
+        { month: 'Sep 2025', cost: 2100000 },
+        { month: 'Oct 2025', cost: 2450000 },
+        { month: 'Nov 2025', cost: 2890000 },
+        { month: 'Dec 2025', cost: 3200000 },
+        { month: 'Jan 2026', cost: 4120000 },
+        { month: 'Feb 2026', cost: 4764063 },
+    ],
+};
+
+// ============================================================
+// NEW: Audit Log
+// ============================================================
+let auditLog = [
+    { action: 'approve', user: 'kevin@perplexity.ai', target: 'dep-003', details: 'Approved pplx-reasoning deployment (2x GB200 NVL72 racks)', timestamp: '2026-02-01T13:45:00Z' },
+    { action: 'deploy', user: 'austin.hollan@perplexity.ai', target: 'dep-004', details: 'Deployed pplx-code v3.0', timestamp: '2026-02-05T09:30:00Z' },
+    { action: 'scale', user: 'austin.hollan@perplexity.ai', target: 'dep-002', details: 'Scaled pplx-sonar-small from 4 to 6 replicas', timestamp: '2026-02-12T15:00:00Z' },
+    { action: 'approve', user: 'kevin@perplexity.ai', target: 'job-001', details: 'Approved Sonar Large v2.5 Pre-training (144x GB200)', timestamp: '2026-02-10T09:30:00Z' },
+    { action: 'submit_job', user: 'eng-team@perplexity.ai', target: 'job-006', details: 'Submitted Sonar Turbo Distillation for approval', timestamp: '2026-02-20T15:00:00Z' },
+    { action: 'submit_deployment', user: 'eng-team@perplexity.ai', target: 'dep-006', details: 'Requested pplx-sonar-turbo deployment', timestamp: '2026-02-20T16:00:00Z' },
+    { action: 'complete_job', user: 'system', target: 'job-008', details: 'Sonar Small v2.3 SFT completed successfully', timestamp: '2026-02-12T18:00:00Z' },
+    { action: 'submit_job', user: 'research@perplexity.ai', target: 'job-007', details: 'Submitted Multilingual Alignment for approval', timestamp: '2026-02-21T09:00:00Z' },
+];

@@ -34,50 +34,69 @@
             </div>
         </div>
         <div class="sidebar-nav">
+            <!-- Operations -->
+            <div class="nav-divider"><span>OPERATIONS</span></div>
             <a href="#" class="nav-item active" data-section="fleet" data-key="1">
                 <span class="nav-icon">◈</span>
                 <span class="nav-label">Fleet Dashboard</span>
                 <span class="nav-shortcut">1</span>
             </a>
-            <a href="#" class="nav-item" data-section="advisor" data-key="2">
-                <span class="nav-icon">⚡</span>
-                <span class="nav-label">GPU Advisor</span>
+            <a href="#" class="nav-item" data-section="scheduler" data-key="2">
+                <span class="nav-icon">▦</span>
+                <span class="nav-label">Scheduler</span>
                 <span class="nav-shortcut">2</span>
             </a>
-            <a href="#" class="nav-item" data-section="cost" data-key="3">
-                <span class="nav-icon">◆</span>
-                <span class="nav-label">Cost Analyzer</span>
+            <a href="#" class="nav-item" data-section="models" data-key="3">
+                <span class="nav-icon">⬡</span>
+                <span class="nav-label">Model Registry</span>
                 <span class="nav-shortcut">3</span>
             </a>
-            <a href="#" class="nav-item" data-section="scheduler" data-key="4">
-                <span class="nav-icon">▦</span>
-                <span class="nav-label">Job Scheduler</span>
-                <span class="nav-shortcut">4</span>
-            </a>
-            <a href="#" class="nav-item" data-section="capacity" data-key="5">
-                <span class="nav-icon">◐</span>
-                <span class="nav-label">Capacity Planner</span>
-                <span class="nav-shortcut">5</span>
-            </a>
-            <a href="#" class="nav-item" data-section="knowledge" data-key="6">
-                <span class="nav-icon">▣</span>
-                <span class="nav-label">GPU Knowledge Base</span>
-                <span class="nav-shortcut">6</span>
-            </a>
-            <a href="#" class="nav-item" data-section="reports" data-key="7">
-                <span class="nav-icon">▤</span>
-                <span class="nav-label">Reports</span>
-                <span class="nav-shortcut">7</span>
-            </a>
-            <a href="#" class="nav-item" data-section="monitoring" data-key="8">
+            <a href="#" class="nav-item" data-section="monitoring" data-key="4">
                 <span class="nav-icon">◉</span>
                 <span class="nav-label">GPU Monitoring</span>
+                <span class="nav-shortcut">4</span>
+            </a>
+
+            <!-- Planning -->
+            <div class="nav-divider"><span>PLANNING</span></div>
+            <a href="#" class="nav-item" data-section="advisor" data-key="5">
+                <span class="nav-icon">⚡</span>
+                <span class="nav-label">GPU Advisor</span>
+                <span class="nav-shortcut">5</span>
+            </a>
+            <a href="#" class="nav-item" data-section="capacity" data-key="6">
+                <span class="nav-icon">◐</span>
+                <span class="nav-label">Capacity Planner</span>
+                <span class="nav-shortcut">6</span>
+            </a>
+            <a href="#" class="nav-item" data-section="cost" data-key="7">
+                <span class="nav-icon">◆</span>
+                <span class="nav-label">Cost Analyzer</span>
+                <span class="nav-shortcut">7</span>
+            </a>
+            <a href="#" class="nav-item" data-section="knowledge" data-key="8">
+                <span class="nav-icon">▣</span>
+                <span class="nav-label">GPU Knowledge Base</span>
                 <span class="nav-shortcut">8</span>
             </a>
+
+            <!-- Integrations -->
+            <div class="nav-divider"><span>INTEGRATIONS</span></div>
             <a href="#" class="nav-item" data-section="grafana" data-key="9">
                 <span class="nav-icon">◧</span>
-                <span class="nav-label">Grafana Connector</span>
+                <span class="nav-label">Grafana</span>
                 <span class="nav-shortcut">9</span>
+            </a>
+            <a href="#" class="nav-item" data-section="reports">
+                <span class="nav-icon">▤</span>
+                <span class="nav-label">Reports</span>
+            </a>
+
+            <!-- Admin -->
+            <div class="nav-divider"><span>ADMIN</span></div>
+            <a href="#" class="nav-item" data-section="admin">
+                <span class="nav-icon">⊡</span>
+                <span class="nav-label">Admin Dashboard</span>
             </a>
         </div>
         <div class="sidebar-footer">
@@ -87,7 +106,7 @@
             </div>
             <div class="sidebar-meta">
                 <span class="meta-label">Fleet Version</span>
-                <span class="meta-value">v3.0.0</span>
+                <span class="meta-value">v4.0.0</span>
             </div>
         </div>
     </nav>
@@ -109,6 +128,7 @@
                     <span class="live-text">LIVE</span>
                 </div>
                 <div class="clock" id="clock"></div>
+                <div class="user-avatar" id="userAvatar" title="Austin Hollan (Admin)">AH</div>
             </div>
         </header>
 
@@ -123,6 +143,8 @@
             <section class="section" id="section-reports"></section>
             <section class="section" id="section-monitoring"></section>
             <section class="section" id="section-grafana"></section>
+            <section class="section" id="section-models"></section>
+            <section class="section" id="section-admin"></section>
         </div>
     </main>
 
@@ -131,15 +153,18 @@
 
     <!-- Modular JS — loaded in dependency order -->
     <script src="./js/data.js"></script>
+    <script src="./js/api.js"></script>
     <script src="./js/fleet.js"></script>
     <script src="./js/advisor.js"></script>
     <script src="./js/cost.js"></script>
     <script src="./js/scheduler.js"></script>
     <script src="./js/capacity.js"></script>
     <script src="./js/knowledge.js"></script>
+    <script src="./js/models.js"></script>
     <script src="./js/reports.js"></script>
     <script src="./js/monitoring.js"></script>
     <script src="./js/grafana.js"></script>
+    <script src="./js/admin.js"></script>
     <script src="./js/nav.js"></script>
 </body>
 </html>
