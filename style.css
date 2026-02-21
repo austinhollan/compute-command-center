@@ -697,12 +697,6 @@ body.sidebar-open .sidebar {
     color: var(--text-secondary);
 }
 
-.panel-subtitle {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-}
-
 .panel-body { padding: 16px; }
 .panel-body.no-padding { padding: 0; }
 
@@ -2303,4 +2297,376 @@ textarea.form-input {
     .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
     .provider-summary-cards { grid-template-columns: repeat(2, 1fr); }
     .grafana-connection-cards { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   V4 ADDITIONS: Nav Dividers, User Avatar, Scheduler Tabs, etc.
+   ============================================================ */
+
+/* Nav section dividers */
+.nav-divider {
+    padding: 16px 20px 6px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+.nav-divider:first-child { padding-top: 8px; }
+
+/* User avatar in top bar */
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #0088AA);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: transform 0.15s;
+}
+.user-avatar:hover { transform: scale(1.1); }
+
+/* Scheduler tab bar */
+.scheduler-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-primary);
+}
+.scheduler-tab {
+    padding: 10px 24px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.scheduler-tab:hover { color: var(--text-primary); }
+.scheduler-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.scheduler-tab .tab-count {
+    display: inline-block;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: 6px;
+    font-weight: 600;
+}
+.scheduler-tab.active .tab-count {
+    background: rgba(0, 212, 170, 0.15);
+    color: var(--accent);
+}
+
+/* Admin tab bar (reuse scheduler tab styles) */
+.admin-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-primary);
+}
+.admin-tab {
+    padding: 10px 20px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.admin-tab:hover { color: var(--text-primary); }
+.admin-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* Approval cards */
+.approval-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+}
+.approval-card:hover { border-color: var(--accent-dim); }
+.approval-card .approval-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.approval-card .approval-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: var(--bg-primary);
+    border-radius: 6px;
+}
+.approval-card .approval-detail-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.approval-card .approval-detail-value {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.approval-card .approval-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.approval-card .btn-approve {
+    background: rgba(0, 212, 170, 0.15);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+.approval-card .btn-approve:hover { background: rgba(0, 212, 170, 0.25); }
+.approval-card .btn-deny {
+    background: rgba(255, 68, 102, 0.1);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+.approval-card .btn-deny:hover { background: rgba(255, 68, 102, 0.2); }
+
+/* Progress bars for training jobs */
+.job-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-primary);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.job-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+/* Running deployment row highlight */
+tr.dep-running { border-left: 3px solid var(--accent); }
+
+/* Model health cards */
+.model-health-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.model-health-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    padding: 16px;
+    transition: border-color 0.2s;
+}
+.model-health-card:hover { border-color: var(--accent-dim); }
+.model-health-card .mhc-name {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+.model-health-card .mhc-version {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+.model-health-card .mhc-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.model-health-card .mhc-metric-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+.model-health-card .mhc-metric-value {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Traffic indicator dots */
+.traffic-dots {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+.traffic-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.traffic-dot.green { background: var(--accent); }
+.traffic-dot.yellow { background: var(--warning); }
+.traffic-dot.red { background: var(--danger); }
+.traffic-dot.dim { opacity: 0.2; }
+
+/* Scale controls inline */
+.scale-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: 4px;
+    padding: 2px 4px;
+}
+.scale-control button {
+    width: 22px;
+    height: 22px;
+    border: none;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.scale-control button:hover { background: var(--accent-dim); color: var(--accent); }
+.scale-control input {
+    width: 36px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Deny reason input */
+.deny-input-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+.deny-input-row input {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--danger);
+    border-radius: 4px;
+    color: var(--text-primary);
+    padding: 4px 8px;
+    font-size: 12px;
+    font-family: var(--font-ui);
+}
+
+/* Cost trend chart container */
+.cost-trend-chart {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* Audit action badges */
+.audit-action {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.audit-action.approve { background: rgba(0, 212, 170, 0.15); color: var(--accent); }
+.audit-action.deny { background: rgba(255, 68, 102, 0.15); color: var(--danger); }
+.audit-action.scale { background: rgba(68, 136, 255, 0.15); color: var(--info); }
+.audit-action.deploy { background: rgba(139, 92, 246, 0.15); color: #8B5CF6; }
+.audit-action.submit_job, .audit-action.submit_deployment { background: rgba(255, 170, 0, 0.15); color: var(--warning); }
+.audit-action.cancel_job, .audit-action.cancel { background: rgba(255, 68, 102, 0.15); color: var(--danger); }
+.audit-action.complete_job, .audit-action.complete { background: rgba(0, 212, 170, 0.15); color: var(--accent); }
+.audit-action.register_model { background: rgba(139, 92, 246, 0.15); color: #8B5CF6; }
+.audit-action.teardown { background: rgba(255, 68, 102, 0.15); color: var(--danger); }
+
+/* RBAC role cards */
+.role-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.role-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    padding: 16px;
+}
+.role-card .role-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.role-card ul {
+    margin: 0;
+    padding: 0 0 0 16px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* Pending count banner */
+.pending-banner {
+    background: rgba(255, 170, 0, 0.1);
+    border: 1px solid var(--warning);
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--warning);
 }
